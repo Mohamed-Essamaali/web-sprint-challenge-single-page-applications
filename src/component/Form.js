@@ -3,6 +3,8 @@ import {Form,Input,FormGroup,Dropdown,DropdownToggle,DropdownMenu,Label} from 'r
 
 const PizzaForm = ()=>{
 
+
+
     const[dropdownOpen, setDropdownOpen] = useState(false);
     const toggle= ()=>{
         setDropdownOpen(prevState=>!prevState);
@@ -13,7 +15,14 @@ const PizzaForm = ()=>{
        souce:'',
         topping:'',
         special:''
-    })
+    });
+
+    const handleChange = e=>{
+        setFormData({...formdata,[e.target.name]:e.target.value})
+    }
+    const handleTopping = e=>{
+        setFormData({...formdata,[e.target.name]:e.target.checked})
+    }
 
     return (
         <>
@@ -49,7 +58,7 @@ const PizzaForm = ()=>{
                 <legend >Choice Of Souce</legend>
                 <FormGroup check>
                 <Label check>
-                <Input type='radio' name='souce' value = 'red'/>
+                <Input type='radio' name='souce' value = 'red' onChange={handleChange}/>
                 Original Red
                 </Label>
             </FormGroup>
@@ -57,7 +66,7 @@ const PizzaForm = ()=>{
             <FormGroup check>
              
                 <Label check>
-                <Input type='radio' name='souce' value = 'garlic'/>
+                <Input type='radio' name='souce' value = 'garlic' onChange={handleChange}/>
                 Garlic Ranch
                 </Label>
             </FormGroup>
@@ -65,14 +74,14 @@ const PizzaForm = ()=>{
             <FormGroup check>
                 
                 <Label check>
-                <Input type='radio' name='garlic' value = 'bbq'/>
+                <Input type='radio' name='garlic' value = 'bbq' onChange={handleChange}/>
                 BBQ Souce
                 </Label>
             </FormGroup>
             <FormGroup check>
                 
                 <Label check>
-                <Input type='radio' name='souce' value = 'spinach'/>
+                <Input type='radio' name='souce' value = 'spinach' onChange={handleChange}/>
                 Spinach Alfredo
                 </Label>
             </FormGroup>
@@ -84,7 +93,7 @@ const PizzaForm = ()=>{
                 <legend >Add Topping</legend>
                 <FormGroup check>
                 <Label check>
-                <Input type='checkbox' name='pepper' value = 'pepper'/>
+                <Input type='checkbox' name='pepper' value = 'pepper' checked={false} onChange={handleTopping}/>
                 Pepperani
                 </Label>
             </FormGroup>
@@ -92,7 +101,7 @@ const PizzaForm = ()=>{
             <FormGroup check>
              
                 <Label check>
-                <Input type='checkbox' name='sousage' value = 'sousage'/>
+                <Input type='checkbox' name='sousage' value = 'sousage'checked={false} onChange={handleTopping}/>
                 Sousage
                 </Label>
             </FormGroup>
@@ -100,14 +109,14 @@ const PizzaForm = ()=>{
             <FormGroup check>
                 
                 <Label check>
-                <Input type='checkbox' name='bacon' value = 'caBacon'/>
+                <Input type='checkbox' name='bacon' value = 'caBacon'checked={false} onChange={handleTopping}/>
                 Canadian Bacon
                 </Label>
             </FormGroup>
             <FormGroup check>
                 
                 <Label check>
-                <Input type='checkbox' name='italian' value = 'itSousage'/>
+                <Input type='checkbox' name='italian' value = 'itSousage'checked={false} onChange={handleTopping}/>
                 Spicy Italian Sousage
                 </Label>
             </FormGroup>
@@ -115,7 +124,7 @@ const PizzaForm = ()=>{
             </FormGroup>
             <FormGroup check>
                 <legend>Special INstruction</legend>
-                <Input type='textarea' name='special'value={formdata.special}/>
+                <Input type='textarea' name='special'value={formdata.special} onChange={handleChange}/>
             </FormGroup>
             <Button>Add To Order</Button>
 
