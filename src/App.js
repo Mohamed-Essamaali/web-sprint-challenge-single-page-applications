@@ -1,5 +1,5 @@
 import React from "react";
-import {Card, CardImg, Button, Input,Navbar} from 'reactstrap';
+import {Card, CardImg, Button,Navbar} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {Link,Route} from 'react-router-dom';
 import PizzaForm from './component/Form'
@@ -19,12 +19,7 @@ const App = () => {
       </Link>
     </Navbar>
      
-      <Route exact path='/'/>
-
-      <Route path='/pizza'>
-        <PizzaForm/>
-        </Route>
-
+      <Route exact path='/'>
       <Card>
         <CardImg src={require('./Assets/Pizza.jpg')} />
         <Link to = {'/pizza'}>
@@ -34,6 +29,13 @@ const App = () => {
       
       </Link>
       </Card>
+        </Route>
+
+      <Route path='/pizza'>
+        <PizzaForm/>
+        </Route>
+
+     
      
     </>
   );
