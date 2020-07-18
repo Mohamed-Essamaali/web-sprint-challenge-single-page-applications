@@ -25,7 +25,7 @@ const App = () => {
         <Link to = {'/pizza'}>
 
         <Button style={{position:'absolute',left:'50%',top:'50%',
-        padding:'1%',width:'15%',fontSize:'1.2rem', borderRadius:'6px'}}>Pizza</Button>
+        padding:'1%',width:'15%',fontSize:'1.2rem', borderRadius:'6px'}}>Order Pizza</Button>
       
       </Link>
       </Card>
