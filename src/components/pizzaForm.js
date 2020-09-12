@@ -24,7 +24,16 @@ const defaultState = {
 
     const[formData,setFormData] = useState(defaultState);
 
-    const[errors,setErrors] = useState(defaultState);
+    const[errors,setErrors] = useState({
+        name:'',
+        pizzaSize:'',
+        pizzaSauce:'',
+        pepperoni:'',
+        mushroom:'',
+        bacon:'',
+        olives:'',
+        special:''
+    });
 
    
 
@@ -32,7 +41,7 @@ const defaultState = {
     name: yup.string().required('Name is a required field').min(2,'Name must be at least 2 characters'),
     pizzaSize: yup.string().required('Please select your size'),
     pizzaSauce: yup.string().required('Must select Sauce'),
-    pepperoni:yup.boolean(),
+    pepperoni:yup.boolean().oneOf([true],'you need to choose your topping'),
     mushroom:yup.boolean(),
     bacon:yup.boolean(),
     olives:yup.boolean(),
@@ -89,35 +98,39 @@ useEffect(() => {
         .catch()
     }
 
+    //some styling form
+
+    const styles = {display:'flex',alignItems:'center',width:'10%'}
+
     return (
         <>
 <Route exact path='/pizza'>
         <Form onSubmit={submitForm} style={{padding:'1% 5%',fontSize:'1.2rem', }}>
             <FormGroup check style={{width:'35%'}}>
-                <legend>Name</legend>
+                <h4>Name</h4>
                 <input data-cy='name' type='text' name='name' value={formData.name} onChange={handleChange}/>
                 {errors.name.length<0?null: <p className="error">{errors.name}</p>}
                 
                
             </FormGroup>
           
-             <FormGroup check>
-                <label check htmlFor='size'>Choice Of Size</label>
+             <FormGroup  style={{display:'flex',flexDirection:'column',marginBottom:'1.2%'}} check>
+                <h4 check htmlFor='size'>Choice Of Size</h4>
                 
                     <select id ='size' name='pizzaSize' style={{width:'15%'}} value = {formData.pizzaSize} onChange={handleChange}>
-                        <option>Choose  Pizza Size</option>
+                        <option value='none'>Choose  Pizza Size</option>
                         <option value='small'>Small</option>
                         <option value='medium'>Medium</option>
                         <option value='large'>Large</option>
                     </select>
-                    {errors.pizzaSize.length<0?null: <p className="error">{errors.pizzaSize}</p>}
+                    {formData.pizzaSize.value==='none' ? <p className="error">{errors.pizzaSize}</p> :null}
                     
                
                
             </FormGroup>
 
             <FormGroup  checked={formData.pizzaSauce} name='pizzaSauce'  check  >
-                <legend >Choice Of Sauce</legend>
+                <h4 >Choice Of Sauce</h4>
                 <FormGroup check>
                 
                 <Input id ='original' type='radio' name='pizzaSauce'  value='original'  onChange={handleChange} />
@@ -125,7 +138,7 @@ useEffect(() => {
            
             </FormGroup>
 
-            <FormGroup >
+            <FormGroup style={styles} check>
              
                
                 <Input id ='garlic' type='radio' name='pizzaSauce' value = 'garlic' onChange={handleChange}/>
@@ -133,14 +146,14 @@ useEffect(() => {
                
             </FormGroup>
 
-            <FormGroup>
+            <FormGroup style={styles} check>
                 
               
                 <Input id='bbq' type='radio' name='pizzaSauce' value = 'bbq'    onChange={handleChange}/>
                <label htmlFor= 'bbq'>BBQ Souce</label> 
                 
             </FormGroup>
-            <FormGroup >
+            <FormGroup style={styles} check>
                 
                
                 <Input id='spinach' type='radio' name='pizzaSauce' value = 'spinach'   onChange={handleChange} />
@@ -152,49 +165,40 @@ useEffect(() => {
 
 
             <FormGroup   >
-                <label >Add Topping</label>
-                <FormGroup check>
-                
-                <Input id='pepperoni' type='checkbox' name='pepperoni'   checked={formData.pepperoni} onChange={handleChange}/>
+                <h4>Add Topping</h4>
+                <FormGroup style={styles} check>
+                <input id='pepperoni' type='checkbox' name='pepperoni'   checked={formData.pepperoni} onChange={handleChange}/>
                 <label htmlFor = 'pepperoni'>Pepperoni </label>
-             
+            </FormGroup>
+            {errors.pepperoni.length>0?<p className='error'>{errors.pepperoni}</p>:null}
+
+            <FormGroup style={styles} check>
+                <input id='mushroom' type='checkbox'  name='mushroom'  checked={formData.mushroom} onChange={handleChange}/>
+               <label htmlFor = 'mushroom'> mushroom</label>
             </FormGroup>
 
-            <FormGroup check>
-             
-                <Label check>
-                <Input type='checkbox'  name='mushroom'  checked={formData.mushroom} onChange={handleChange}/>
-                mushroom
-                </Label>
+            <FormGroup style={styles} check>
+                <input id='bacon' type='checkbox'  name='bacon'  checked={formData.bacon} onChange={handleChange}></input>
+                <label htmlFor ='bacon'>Canadian Bacon</label>
             </FormGroup>
 
-            <FormGroup check>
-                
-                <Label check>
-                <Input type='checkbox'  name='bacon'  checked={formData.bacon} onChange={handleChange}/>
-                Canadian Bacon
-                </Label>
-            </FormGroup>
-            <FormGroup check>
-                
-                <Label check>
-                <Input type='checkbox'  name='olives' checked={formData.olives} onChange={handleChange}/>
-                Olives
-                </Label>
+            <FormGroup style={styles} check>
+                <input id='olives'  type='checkbox'  name='olives' checked={formData.olives} onChange={handleChange}/>
+               <label  htmlFor='olives'> Olives</label>  
             </FormGroup>
           
-            </FormGroup>
-            <FormGroup check style={{width:'35%'}}>
+         </FormGroup>
+            <FormGroup check >
                 <legend>Special Instruction</legend>
-                <Input type='textarea' name='special' value={formData.special} onChange={handleChange}/>
+                <input type='textarea' name='special' value={formData.special} onChange={handleChange}/>
                 { <p className="error">{errors.special}</p>}
             </FormGroup>
             
        
 
-        {/* <Link to ='/pizza/confirmation'> */}
+        <Link to ='/pizza/confirmation'>
              <Button disabled={buttonDisabled} > Add To Order</Button>
-        {/* </Link> */}
+        </Link>
            
 
         </Form>

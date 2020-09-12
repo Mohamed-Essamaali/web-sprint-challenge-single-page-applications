@@ -4,7 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import {Link,Route} from 'react-router-dom';
 import PizzaForm from './components/pizzaForm'
 import Confirmation from './components/confirmation';
-// import image from './Assets/Pizza.jpg';
+import image from "./images/Pizza.jpg";
+
 
 
 
@@ -34,7 +35,7 @@ const addNewOrder = e =>{
      
       <Route exact path='/'>
         <Card>
-          <CardImg src='./Assets/Pizza.jpg'  alt='Pizza Logo'/>
+          <CardImg src={image} alt='Pizza Logo'/>
           <Link to = '/pizza'>
               <Button style={{position:'absolute',left:'50%',top:'50%',
               padding:'1%',width:'15%',fontSize:'1.2rem', borderRadius:'6px'}}>Order Pizza Here</Button>
