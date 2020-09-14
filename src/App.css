@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+
+.error {
+  color:red
+}
+form label {
+  margin-left:10%
+}
+FormGroup {
+  width:25%
+}
+.home-container{
+  background: #ced4d8;
+}
